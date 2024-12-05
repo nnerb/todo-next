@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import Spinner from "app/components/spinner";
 import axios from "axios";
+import { useCurrentSession } from "app/hooks/use-current-session";
 
 interface Task {
   id: string ;
@@ -24,7 +25,8 @@ const Todo = () => {
   const [idToEdit, setIdToEdit] = useState<string | null>(null) 
   const [isLoading, setIsLoading] = useState<boolean>()
   const [buttonLoading, setButtonLoading] = useState<boolean>()
-  const { status } = useSession();
+  const { status } = useCurrentSession()
+
 
   useEffect(() => {
 
@@ -46,7 +48,7 @@ const Todo = () => {
     if (status === "authenticated") {
       fetchTasks();
     } 
-  }, []);
+  }, [status]);
 
   const handleAddTask = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -161,10 +163,11 @@ const Todo = () => {
     } 
   }
 
-  if (status === 'loading') {
+  console.log(status)
+
+  if (status === "loading") {
     return <Spinner />
   }
-
 
   return (
     <div className="border border-gray-200 bg-gray-100 
@@ -268,7 +271,10 @@ const Todo = () => {
                   </div>
                 </li>
             ))) : (
-              <p className="text-sm text-gray-600 italic">Currently no tasks..</p>
+              <>
+              {status === "authenticated" && <p className="text-sm text-gray-600 italic">Currently no tasks..</p>}
+              {status === "unauthenticated" && <p className="text-sm text-gray-600 italic">Sign in to get started.</p>}
+              </>
             )
           )
         }
