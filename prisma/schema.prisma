@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model User {
+  id             String  @id @default(cuid()) // Unique identifier
+  name           String?
+  email          String?  @unique // Unique email address
+  password       String?
+  createdAt      DateTime @default(now()) // Timestamp when the user was created
+  updatedAt      DateTime @updatedAt // Timestamp when the user was last updated
+  
+  tasks          Todo[]  // One-to-many relation with Task
+  accounts       Account[]
+  @@map("users")
+}
+
+model Todo {
+  id          String    @id @default(cuid()) // Unique identifier
+  userId      String   // Reference to the user who created the task
+  title       String   // Title of the task
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now()) // Timestamp when the task was created
+  updatedAt   DateTime  @updatedAt // Timestamp when the task was last updated
+
+  user        User     @relation(fields: [userId], references: [id]) // Relation with User
+  @@map("todo")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
