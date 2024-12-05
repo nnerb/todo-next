@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs"
 import { prisma } from "app/lib/prisma";
 import * as z from 'zod'
 import { checkPasswordStrength } from "app/utils/password";
-import { getUserByEmail } from "data/user";
+import { getUserByEmail } from "actions/user";
 
 
 const userSchema = z.object({

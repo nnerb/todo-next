@@ -1,11 +1,10 @@
 "use client"
 
 import { login } from "actions/login";
-import Spinner from "app/components/spinner";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState, useTransition } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -23,11 +22,10 @@ export default function SignIn() {
 
   const [isPasswordShow, setIsPasswordShow] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [isPending, startTransition] = useTransition()
 
 
   const router = useRouter()
-  const {data: session, status } = useSession();
+  const { status } = useSession();
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -58,9 +56,6 @@ export default function SignIn() {
     }
   };
 
-  if (status === 'loading' || isLoading) {
-    return <Spinner/>
-  }
 
   return (
     <main className="min-h-screen w-full flex items-center justify-center bg-gray-200">
@@ -78,7 +73,7 @@ export default function SignIn() {
                 type="text" 
                 name="email"
                 required
-                disabled={isPending}
+                disabled={isLoading}
                 placeholder="johndoe@mail.com"
                 value={formValues.email}
                 onChange={handleOnChange}
@@ -91,26 +86,32 @@ export default function SignIn() {
                 type={isPasswordShow ? "" : "password"} 
                 name="password"
                 required
-                disabled={isPending}
+                disabled={isLoading}
                 value={formValues.password}
                 onChange={handleOnChange}
-                className="border w-full text-sm border-1 px-3 py-[0.4rem] bg-gray-100 border-gray-900 rounded-md"
-                />
-                <div 
+                className="
+                  border w-full text-sm border-1 
+                  px-3 py-[0.4rem] bg-gray-100 border-gray-900 rounded-md
+                "
+              />
+              <div 
                 className="absolute right-[8px] bottom-[8px] cursor-pointer" 
                 onClick={() => setIsPasswordShow(prevStatus => !prevStatus)}>
-                {isPasswordShow ? (
-                  <FaEye/> 
-                ) : (
-                  <FaEyeSlash />
-                )}
+                {
+                  isPasswordShow 
+                  ? <FaEye/> 
+                  : <FaEyeSlash />
+                }
               </div>
            </div>
             <button 
-              disabled={isPending}
-              className={`cursor-pointer w-full text-white px-3 py-1 
-              bg-blue-400 rounded-md hover:bg-blue-500 transition duration-300
-              ${isPending ? "bg-blue-400" : ""}
+              disabled={isLoading}
+              className={`
+                w-full text-white px-3 py-1 rounded-md transition duration-300
+                ${isLoading 
+                  ? "bg-blue-300 cursor-not-allowed" 
+                  : "bg-blue-400 hover:bg-blue-500"
+                }
               `}
             >
               Sign in

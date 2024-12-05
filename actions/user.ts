@@ -1,3 +1,5 @@
+"use server"
+
 import { prisma } from "app/lib/prisma"
 
 export const getUserByEmail = async (email: string) => {

@@ -4,9 +4,6 @@ import "./globals.css";
 import ToasterProvider from "providers/ToastProvider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "auth";
-import getCurrentUser from "actions/getCurrentUser";
-import { useCurrentUser } from "hooks/use-current-user";
-import { getUserByEmail } from "data/user";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

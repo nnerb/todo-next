@@ -152,7 +152,6 @@ const Todo = () => {
     });
   }; 
 
-  
   const handleEdit = (id: string) => {
     const taskToEdit = tasks.find((task) => task.id === id)
     setInput(taskToEdit?.title || "")

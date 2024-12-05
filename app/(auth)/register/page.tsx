@@ -4,7 +4,7 @@ import Spinner from "app/components/spinner";
 import { RegisterProps } from "app/constants";
 import { checkPasswordStrength } from "app/utils/password";
 import axios from "axios";
-import { getUserByEmail } from "data/user";
+import { getUserByEmail } from "actions/user";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ export default function Register() {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>()
 
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -43,7 +43,7 @@ export default function Register() {
     setIsLoading(true)
     try {
       const existingUser = await getUserByEmail(formValues.email);
-      console.log(formValues)
+      console.log(existingUser)
       if (existingUser) {
         toast.error("User with this email already exists");
       } else {
@@ -111,11 +111,11 @@ export default function Register() {
                 <div 
                   className="absolute right-[8px] bottom-[9px] cursor-pointer" 
                   onClick={() => setIsPasswordShow(prevStatus => !prevStatus)}>
-                  {isPasswordShow ? (
-                    <FaEye/> 
-                  ) : (
-                    <FaEyeSlash />
-                  )}
+                  {
+                    isPasswordShow 
+                    ? <FaEye/> 
+                    : <FaEyeSlash />
+                  }
                 </div>
               </div>
                 {formValues.password && (
@@ -135,12 +135,15 @@ export default function Register() {
                 )}
             </div>
             <button 
-              disabled={(passwordStrength === "Weak" || !formValues.password) && true}
-              className={`w-full text-white px-3 py-1 bg-blue-400 
-                rounded-md hover:bg-blue-500 transition duration-300
-                ${(passwordStrength === "Weak" || !formValues.password) ? 
-                "cursor-not-allowed pointer-events-none" :
-                "cursor-pointer pointer-events-auto"}`}
+              disabled={((isLoading) || (passwordStrength === "Weak" || !formValues.password))}
+              className={`
+                w-full text-white px-3 py-1 
+                rounded-md transition duration-300
+                ${((isLoading) || (passwordStrength === "Weak" || !formValues.password)) 
+                  ? "bg-blue-300 cursor-not-allowed" 
+                  : "bg-blue-400 hover:bg-blue-500"
+                }
+              `}
               onClick={handleRegister}
             >
               Register
