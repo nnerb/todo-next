@@ -1,18 +1,4 @@
-# TODO CRUD App with Next.js, NextAuth, TypeScript, Zod, TailwindCSS, Jest, Supabase, Prisma
-
-This is a full-stack TODO CRUD application built with **Next.js**, **NextAuth**, **TypeScript**, **Zod**, **TailwindCSS**, **Jest**, **React Testing Library**, **Supabase**, and **Prisma**.
-
-## Table of Contents
-
-1. [Project Setup](#1-project-setup)
-2. [Setting up TailwindCSS](#2-setting-up-tailwindcss)
-3. [Supabase and Prisma Setup](#3-supabase-and-prisma-setup)
-4. [NextAuth Authentication](#4-nextauth-authentication)
-5. [Todo CRUD API Routes](#5-todo-crud-api-routes)
-6. [Frontend - React Components](#6-frontend---react-components)
-7. [Form Validation with Zod](#7-form-validation-with-zod)
-8. [Testing with Jest and React Testing Library](#8-testing-with-jest-and-react-testing-library)
-
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
