@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Card from "./card";
 import axios, { AxiosResponse } from "axios";
-import { UserProps } from "@/app/constants";
+import { UserProps } from "app/constants";
+
 
 const CardList = () => {
   const [data, setData] = useState<UserProps[]>([]);
