@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-
-import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import Spinner from "app/components/spinner";
 import axios from "axios";
@@ -162,8 +160,6 @@ const Todo = () => {
       setIdToEdit(id)
     } 
   }
-
-  console.log(status)
 
   if (status === "loading") {
     return <Spinner />
