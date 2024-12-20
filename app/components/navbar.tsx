@@ -25,7 +25,7 @@ const Navbar = () => {
                 ${status === "loading" ? "bg-blue-900" : "bg-blue-800"}
               `}
               type="button" 
-              disabled={status === "loading" ? true : false}
+              disabled={status === "loading"}
             >
               {status === "authenticated" && "Sign out"}
               {status === "unauthenticated" && "Sign in"}
