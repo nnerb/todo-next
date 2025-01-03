@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,9 +23,24 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/components*": ["components/*"]
-    }
+      "@/components*": [
+        "components/*"
+      ]
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "__test__/page.test.jsx", "__test__/todo.test.tsx", "__test__/todo.test.tsx", "__test__/Todo.text.js", "__test__/todo.test.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "__test__/page.test.jsx",
+    "__test__/todo.test.tsx",
+    "__test__/todo.test.tsx",
+    "__test__/Todo.text.js",
+    "__test__/todo.test.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
